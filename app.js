@@ -353,7 +353,7 @@ const openEditModal = (e) => {
 
 	editModal.appendChild(br);
 
-	// Create drop down here.
+	// Dropdown Menu:
 	let countryMenu = document.createElement('select');
 	countryMenu.setAttribute('id', 'countryMenu');
 
@@ -366,6 +366,24 @@ const openEditModal = (e) => {
 	editModal.appendChild(countryMenu);
 
 	editModal.appendChild(hr);
+
+    let del = document.createElement("a");
+    del.setAttribute("class", "body");
+    del.setAttribute("href", "");
+    del.textContent = "Delete";
+    editModal.appendChild(del);
+
+    let cancel = document.createElement("a");
+    cancel.setAttribute("class", "body");
+    cancel.setAttribute("href", "");
+    cancel.textContent = "Cancel";
+    editModal.appendChild(cancel);
+
+    let save = document.createElement("a");
+    save.setAttribute("class", "body_right");
+    save.setAttribute("href", "");
+    save.textContent = "Save";
+    editModal.appendChild(save);
 
 	document.body.insertBefore(editModal, container);
 };
