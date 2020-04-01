@@ -1,8 +1,10 @@
+#### ABOUT:
+This was a coding challenge shared with me from Emma. I decided to take the challenge on myself for practice.
+
 #### STEPS:
 - Add cancel functionality to editModal.
 - Break out code into modules.
 - Complete CSS so it's not completely janky.
-
 
 #### LEARNINGS:
 - CSS insertBefore.
