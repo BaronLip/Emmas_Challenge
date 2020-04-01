@@ -2,7 +2,7 @@
 This was a coding challenge shared with me from Emma, a fellow cohort student. I decided to take the challenge on for practice.
 
 #### STEPS:
-~~- Add cancel functionality to editModal.~~
+- ~~Add cancel functionality to editModal.~~
 - Add edit functionality to editModal.
 - Break out code into modules.
 - Complete CSS so it's not completely janky.
@@ -11,7 +11,7 @@ This was a coding challenge shared with me from Emma, a fellow cohort student. I
 - CSS insertBefore.
 - Arrow functions and returns still.
 - Closures???
-- Controlled form.
+- Controlled form & setting data attributes.
 
 #### NOTE:
 The edit link with each of the daily price should not be there. You would never personally edit a closing price of a stock. 

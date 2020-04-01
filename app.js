@@ -300,7 +300,7 @@ const countryList = [
 	'Zimbabwe',
 	'Åland Islands'
 ];
-// Creating the variables here allow for better "global" access.
+// Creating the DOM variables here allow for better "global" access.
 let backdrop;
 let priceModal;
 let addModal;
@@ -308,18 +308,30 @@ let editModal;
 let br = document.createElement('br');
 let hr = document.createElement('hr');
 
-// const saveValueInputs = (isin, name, va)
+// Data variables:
+let tempSecurity = {};
 
-const editValueInputs = (e) => {
-	e.preventDefault();
-	let isin = e.target.parentNode.dataset.isin;
-	let name = e.target.id;
-	let value = e.target.value;
+const saveValueInputs = (tempSecurity) => {
+	console.log(tempSecurity);
 
 	let securityIndex = securities.findIndex( security => (
 		security.isin == isin
 	))
-	console.log(isin, name, value);
+
+	
+}
+
+const editValueInputs = (e) => {
+	e.preventDefault();
+	
+	let securityIsin = e.target.parentNode.dataset.isin;
+	let name = e.target.parentNode.dataset.name;
+	let key = e.target.id;
+	let value = e.target.value;
+	// console.log(securityIsin, name, key, value);
+	
+	tempSecurity[key] = value;
+	// console.log(tempSecurity)
 }
 
 const deleteSecurity = (isin) => {
@@ -360,7 +372,9 @@ const openEditModal = (e) => {
 	// Open the Edit modal.
 	editModal = document.createElement('div');
 	editModal.setAttribute('class', 'modal');
-	editModal.setAttribute("data-isin", e.target.parentNode.dataset.isin)
+	editModal.setAttribute("data-isin", e.target.parentNode.dataset.isin);
+	editModal.setAttribute("data-name", e.target.parentNode.dataset.name);
+
 
 	let nameLabel = document.createElement('label');
 	nameLabel.textContent = 'Name';
@@ -509,9 +523,10 @@ let securityNodes = [];
 
 // Dynamically create cards:
 const card = (security) => {
-	console.log(security.name);
+	// console.log(security.name);
 	let newDiv = document.createElement('div');
 	newDiv.setAttribute('class', 'card');
+	newDiv.setAttribute('data-name', security.name);
 	newDiv.setAttribute('data-isin', security.isin);
 	newDiv.setAttribute('id', security.isin);
 
