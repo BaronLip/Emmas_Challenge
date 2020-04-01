@@ -308,6 +308,25 @@ let editModal;
 let br = document.createElement('br');
 let hr = document.createElement('hr');
 
+
+const deleteSecurity = (isin) => {
+	let securityIndex = securities.findIndex( security => (
+		security.isin == 10000003
+	))
+	
+	securities.splice(securityIndex, 1)
+	console.log(securities)
+}
+
+const deleteSecurityNode = (e) => {
+	e.preventDefault();
+	// Remove node from DOM-----
+	let securityNumber = e.target.parentNode.dataset.isin;
+	document.getElementById(`${securityNumber}`).remove();
+	// Remove data from securities array-----
+	deleteSecurity(securityNumber);
+}
+
 const deleteDailyPrice = (e) => {
 	e.preventDefault();
 	console.log('deleteDailyPrice', e.target.parentNode);
@@ -316,13 +335,18 @@ const deleteDailyPrice = (e) => {
 
 const openEditModal = (e) => {
 	e.preventDefault();
-	console.log('openEditModal');
-	// Close the current modal,
-	document.querySelector('.modal').remove();
+	console.log('openEditModal', e.target.parentNode);
+
+	// Backdrop element.
+	backdrop = document.createElement('div');
+	backdrop.classList.add('backdrop');
+	document.body.insertBefore(backdrop, container);
+	backdrop.addEventListener('click', closeModal);		
 
 	// Open the Edit modal.
 	editModal = document.createElement('div');
 	editModal.setAttribute('class', 'modal');
+	editModal.setAttribute("data-isin", e.target.parentNode.dataset.isin)
 
 	let nameLabel = document.createElement('label');
 	nameLabel.textContent = 'Name';
@@ -370,7 +394,8 @@ const openEditModal = (e) => {
     let del = document.createElement("a");
     del.setAttribute("class", "body");
     del.setAttribute("href", "");
-    del.textContent = "Delete";
+	del.textContent = "Delete";
+	del.addEventListener("click", deleteSecurityNode)
     editModal.appendChild(del);
 
     let cancel = document.createElement("a");
@@ -397,6 +422,7 @@ const closeModal = (e) => {
 
 const openPriceModal = (e) => {
 	e.preventDefault();
+	
 	// Backdrop element.
 	backdrop = document.createElement('div');
 	backdrop.classList.add('backdrop');
@@ -405,6 +431,7 @@ const openPriceModal = (e) => {
 	// Modal element and elements inside.
 	priceModal = document.createElement('div');
 	priceModal.classList.add('modal');
+	priceModal.setAttribute("data-isin", e.target.parentNode.dataset.isin)
 
 	let pricesText = document.createElement('p');
 	pricesText.textContent = 'Prices';
@@ -416,8 +443,7 @@ const openPriceModal = (e) => {
 		// Or, use "==" instead of "==="
 		return security.isin == isin;
 	});
-	console.log(security.prices);
-
+	
 	security.prices.forEach((price) => {
 		let priceNode = document.createElement('div');
 		priceNode.setAttribute('data-date', price.date);
@@ -436,7 +462,7 @@ const openPriceModal = (e) => {
 		editPrice.setAttribute('class', 'body');
 		editPrice.textContent = 'Edit';
 		editPrice.setAttribute('href', '');
-		editPrice.addEventListener('click', openEditModal);
+		// editPrice.addEventListener('click', openEditModal);
 		priceNode.appendChild(editPrice);
 
 		let x = document.createElement('a');
@@ -461,11 +487,6 @@ const openPriceModal = (e) => {
 	document.body.insertBefore(priceModal, container);
 };
 
-// const handleEditClick = (e) => {
-//     e.preventDefault();
-//     console.log("handleEditClick");
-// }
-
 let securityNodes = [];
 
 // Dynamically create cards:
@@ -474,6 +495,7 @@ const card = (security) => {
 	let newDiv = document.createElement('div');
 	newDiv.setAttribute('class', 'card');
 	newDiv.setAttribute('data-isin', security.isin);
+	newDiv.setAttribute('id', security.isin);
 
 	let name = document.createElement('span');
 	name.setAttribute('class', 'title');
@@ -504,8 +526,6 @@ const card = (security) => {
 	edit.addEventListener('click', openEditModal);
 	newDiv.appendChild(edit);
 
-	console.log(newDiv.innerHTML);
-	console.log(securityNodes);
 	securityNodes.push(newDiv);
 };
 
