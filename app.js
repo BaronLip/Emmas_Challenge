@@ -308,11 +308,24 @@ let editModal;
 let br = document.createElement('br');
 let hr = document.createElement('hr');
 
+// const saveValueInputs = (isin, name, va)
 
+const editValueInputs = (e) => {
+	e.preventDefault();
+	let isin = e.target.parentNode.dataset.isin;
+	let name = e.target.id;
+	let value = e.target.value;
+
+	let securityIndex = securities.findIndex( security => (
+		security.isin == isin
+	))
+	console.log(isin, name, value);
+}
 
 const deleteSecurity = (isin) => {
+	console.log(isin)
 	let securityIndex = securities.findIndex( security => (
-		security.isin == 10000003
+		security.isin == isin
 	))
 	
 	securities.splice(securityIndex, 1)
@@ -355,22 +368,24 @@ const openEditModal = (e) => {
 
 	editModal.appendChild(br);
 
-	let nameTextArea = document.createElement('textarea');
-	nameTextArea.setAttribute('id', 'nameTextArea');
-	nameTextArea.setAttribute('rows', '1');
-	nameTextArea.setAttribute('column', '20');
-	editModal.appendChild(nameTextArea);
+	let nameInput = document.createElement('input');
+	nameInput.setAttribute('id', 'name');
+	nameInput.setAttribute('rows', '1');
+	nameInput.setAttribute('column', '20');
+	nameInput.addEventListener("input", editValueInputs);
+	editModal.appendChild(nameInput);
 	editModal.appendChild(br);
 
 	let isinLabel = document.createElement('label');
 	isinLabel.textContent = 'ISIN';
 	editModal.appendChild(isinLabel);
 
-	let isinTextArea = document.createElement('textarea');
-	isinTextArea.setAttribute('id', 'isinTextArea');
-	isinTextArea.setAttribute('rows', '1');
-	isinTextArea.setAttribute('column', '20');
-	editModal.appendChild(isinTextArea);
+	let isinInput = document.createElement('input');
+	isinInput.setAttribute('id', 'isin');
+	isinInput.setAttribute('rows', '1');
+	isinInput.setAttribute('column', '20');
+	isinInput.addEventListener("input", editValueInputs);
+	editModal.appendChild(isinInput);
 
 	let countryLabel = document.createElement('label');
 	countryLabel.textContent = 'Country';
@@ -380,7 +395,7 @@ const openEditModal = (e) => {
 
 	// Dropdown Menu:
 	let countryMenu = document.createElement('select');
-	countryMenu.setAttribute('id', 'countryMenu');
+	countryMenu.setAttribute('id', 'country');
 
 	countryList.forEach((country) => {
 		let countryOption = document.createElement('option');
@@ -388,6 +403,7 @@ const openEditModal = (e) => {
 		countryOption.textContent = country;
 		countryMenu.appendChild(countryOption);
 	});
+	countryMenu.addEventListener("change", editValueInputs)
 	editModal.appendChild(countryMenu);
 
 	editModal.appendChild(hr);
