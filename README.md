@@ -1,16 +1,20 @@
 #### ABOUT:
-This was a coding challenge shared with me from Emma, a fellow cohort student. I decided to take the challenge on for practice.
+This was a coding challenge shared with me from Emma, a fellow cohort student. I decided to take the challenge on for practice. 
 
 #### STEPS:
 - ~~Add cancel functionality to editModal.~~
-- Add edit functionality to editModal.
+- ~~Add edit functionality to editModal.~~
+- How would you refresh the DOM after data is saved?
 - Break out code into modules.
 - Complete CSS so it's not completely janky.
 
 #### LEARNINGS:
+- Structuring nested objects.
+- Using dot notation to utilize object data.
 - CSS insertBefore.
 - Arrow functions and returns still.
-- Closures???
+- 
+- Closures??? (Wasn't )
 - Controlled form & setting data attributes.
 
 #### NOTE:

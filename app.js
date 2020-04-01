@@ -311,14 +311,24 @@ let hr = document.createElement('hr');
 // Data variables:
 let tempSecurity = {};
 
-const saveValueInputs = (tempSecurity) => {
-	console.log(tempSecurity);
+const saveValueInputs = (e) => {
+	e.preventDefault();
+	let isinNum = e.target.parentNode.dataset.isin
+	console.log(tempSecurity, isinNum);
 
-	let securityIndex = securities.findIndex( security => (
-		security.isin == isin
+	let security = securities.find( security => (
+		security.isin == isinNum
 	))
-
 	
+	security.name = tempSecurity.name;
+	security.isin = tempSecurity.isin;
+	security.country = tempSecurity.country;
+
+	console.log(security);
+	console.log(securities);
+	closeModal(e);
+	// App();
+	// Needs to refresh the DOM elements with new data.
 }
 
 const editValueInputs = (e) => {
@@ -328,10 +338,9 @@ const editValueInputs = (e) => {
 	let name = e.target.parentNode.dataset.name;
 	let key = e.target.id;
 	let value = e.target.value;
-	// console.log(securityIsin, name, key, value);
 	
 	tempSecurity[key] = value;
-	// console.log(tempSecurity)
+	console.log(tempSecurity)
 }
 
 const deleteSecurity = (isin) => {
@@ -439,7 +448,8 @@ const openEditModal = (e) => {
     let save = document.createElement("a");
     save.setAttribute("class", "body_right");
     save.setAttribute("href", "");
-    save.textContent = "Save";
+	save.textContent = "Save";
+	save.addEventListener("click", saveValueInputs)
     editModal.appendChild(save);
 
 	document.body.insertBefore(editModal, container);
