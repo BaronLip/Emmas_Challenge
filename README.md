@@ -1,5 +1,5 @@
 #### ABOUT:
-This was a coding challenge shared with me from Emma. I decided to take the challenge on myself for practice.
+This was a coding challenge shared with me from Emma, a fellow cohort student. I decided to take the challenge on for practice.
 
 #### STEPS:
 - Add cancel functionality to editModal.

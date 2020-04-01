@@ -309,6 +309,7 @@ let br = document.createElement('br');
 let hr = document.createElement('hr');
 
 
+
 const deleteSecurity = (isin) => {
 	let securityIndex = securities.findIndex( security => (
 		security.isin == 10000003
@@ -395,13 +396,14 @@ const openEditModal = (e) => {
     del.setAttribute("class", "body");
     del.setAttribute("href", "");
 	del.textContent = "Delete";
-	del.addEventListener("click", deleteSecurityNode)
+	del.addEventListener("click", deleteSecurityNode);
     editModal.appendChild(del);
 
     let cancel = document.createElement("a");
     cancel.setAttribute("class", "body");
     cancel.setAttribute("href", "");
-    cancel.textContent = "Cancel";
+	cancel.textContent = "Cancel";
+	cancel.addEventListener("click", closeModal);
     editModal.appendChild(cancel);
 
     let save = document.createElement("a");
