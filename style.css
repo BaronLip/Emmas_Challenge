@@ -21,11 +21,16 @@
     margin-right: 25px;
 }
 
+.select {
+    max-height: 50px;
+    width: 200px;
+}
+
 /* MODAL */
 .modal {
     position: fixed;
-    width: 33%;
-    height: 150px;
+    width: 250px;
+    height: 15%;
     background-color: azure;
     border-style:solid;
     border-width: 1px;
@@ -43,4 +48,31 @@
     left: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 1;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "header header"
+        "leftside rightside"
+        "footer footer";
+}
+
+.header {
+    grid-area: header;
+}
+
+.left {
+    grid-area: leftside;
+    display: flex;
+}
+
+.right {
+    grid-area: rightside;
+}
+
+.footer {
+    grid-area: footer;
 }

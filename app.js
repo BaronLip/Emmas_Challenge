@@ -308,12 +308,14 @@ let editModal;
 let br = document.createElement('br');
 let hr = document.createElement('hr');
 
+
 // Data variables:
 let tempSecurity = {};
 
+
 const saveValueInputs = (e) => {
 	e.preventDefault();
-	let isinNum = e.target.parentNode.dataset.isin
+	let isinNum = e.target.parentNode.parentNode.dataset.isin
 	console.log(tempSecurity, isinNum);
 
 	let security = securities.find( security => (
@@ -356,7 +358,7 @@ const deleteSecurity = (isin) => {
 const deleteSecurityNode = (e) => {
 	e.preventDefault();
 	// Remove node from DOM-----
-	let securityNumber = e.target.parentNode.dataset.isin;
+	let securityNumber = e.target.parentNode.parentNode.dataset.isin;
 	document.getElementById(`${securityNumber}`).remove();
 	// Remove data from securities array-----
 	deleteSecurity(securityNumber);
@@ -380,47 +382,42 @@ const openEditModal = (e) => {
 
 	// Open the Edit modal.
 	editModal = document.createElement('div');
-	editModal.setAttribute('class', 'modal');
+	editModal.setAttribute('class', 'modal grid');
 	editModal.setAttribute("data-isin", e.target.parentNode.dataset.isin);
 	editModal.setAttribute("data-name", e.target.parentNode.dataset.name);
+	
+	let title = document.createElement('p');
+	title.setAttribute("class", "header")
+	title.textContent = `Edit Security: ${e.target.parentNode.dataset.name}`;
+	editModal.appendChild(title);
 
+	// ---BEGIN LEFT MODAL CONTAINER:---
+	let leftModalContainer = document.createElement("div");
+	leftModalContainer.setAttribute("class", "leftside");
 
 	let nameLabel = document.createElement('label');
 	nameLabel.textContent = 'Name';
-	editModal.appendChild(nameLabel);
+	leftModalContainer.appendChild(nameLabel);
 
-	editModal.appendChild(br);
+	leftModalContainer.appendChild(br);
 
 	let nameInput = document.createElement('input');
 	nameInput.setAttribute('id', 'name');
 	nameInput.setAttribute('rows', '1');
 	nameInput.setAttribute('column', '20');
 	nameInput.addEventListener("input", editValueInputs);
-	editModal.appendChild(nameInput);
-	editModal.appendChild(br);
-
-	let isinLabel = document.createElement('label');
-	isinLabel.textContent = 'ISIN';
-	editModal.appendChild(isinLabel);
-
-	let isinInput = document.createElement('input');
-	isinInput.setAttribute('id', 'isin');
-	isinInput.setAttribute('rows', '1');
-	isinInput.setAttribute('column', '20');
-	isinInput.addEventListener("input", editValueInputs);
-	editModal.appendChild(isinInput);
-
+	leftModalContainer.appendChild(nameInput);
+	
 	let countryLabel = document.createElement('label');
+	countryLabel.setAttribute("class", "leftside");
 	countryLabel.textContent = 'Country';
-	editModal.appendChild(countryLabel);
-
-	editModal.appendChild(br);
-
+	leftModalContainer.appendChild(countryLabel);
+	
 	// Dropdown Menu:
 	let countryMenu = document.createElement('select');
 	countryMenu.setAttribute('id', 'country');
-	countryMenu.setAttribute('style', "max-height: 50px");
-	
+	countryMenu.setAttribute("class", "select");
+
 	countryList.forEach((country) => {
 		let countryOption = document.createElement('option');
 		countryOption.setAttribute('value', country);
@@ -428,30 +425,59 @@ const openEditModal = (e) => {
 		countryMenu.appendChild(countryOption);
 	});
 	countryMenu.addEventListener("change", editValueInputs)
-	editModal.appendChild(countryMenu);
+	leftModalContainer.appendChild(countryMenu);
 
-	editModal.appendChild(hr);
+	editModal.appendChild(leftModalContainer)
+	// ---END LEFT MODAL CONTAINER:---
 
+
+	// ---BEGIN RIGHT MODAL CONTAINER:---
+	let rightModalContainer = document.createElement("div");
+	rightModalContainer.setAttribute("class", "rightside");
+
+	let isinLabel = document.createElement('label');
+	isinLabel.textContent = 'ISIN';
+	rightModalContainer.appendChild(isinLabel);
+
+	rightModalContainer.appendChild(br);
+
+	let isinInput = document.createElement('input');
+	isinInput.setAttribute('id', 'isin');
+	isinInput.setAttribute('rows', '1');
+	isinInput.setAttribute('column', '20');
+	isinInput.addEventListener("input", editValueInputs);
+	rightModalContainer.appendChild(isinInput);
+	
+	editModal.appendChild(rightModalContainer);
+	// ---END RIGHT MODAL CONTAINER:---
+
+	// ---BEGIN FOOTER CONTAINER:---
+	let footer = document.createElement("div");
+	footer.setAttribute("class", "footer");
+	
     let del = document.createElement("a");
-    del.setAttribute("class", "body");
+    del.setAttribute("class", "body footer");
     del.setAttribute("href", "");
 	del.textContent = "Delete";
 	del.addEventListener("click", deleteSecurityNode);
-    editModal.appendChild(del);
+    footer.appendChild(del);
 
     let cancel = document.createElement("a");
-    cancel.setAttribute("class", "body");
+    cancel.setAttribute("class", "body footer");
     cancel.setAttribute("href", "");
 	cancel.textContent = "Cancel";
 	cancel.addEventListener("click", closeModal);
-    editModal.appendChild(cancel);
+    footer.appendChild(cancel);
 
     let save = document.createElement("a");
-    save.setAttribute("class", "body_right");
+    save.setAttribute("class", "body_right footer");
     save.setAttribute("href", "");
 	save.textContent = "Save";
 	save.addEventListener("click", saveValueInputs)
-    editModal.appendChild(save);
+	footer.appendChild(save);
+	
+	editModal.appendChild(footer);
+	// ---END FOOTER CONTAINER:---
 
 	document.body.insertBefore(editModal, container);
 };
