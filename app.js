@@ -307,6 +307,9 @@ let addModal;
 let editModal;
 let br = document.createElement('br');
 let hr = document.createElement('hr');
+let addButton = document.createElement("div");
+addButton.setAttribute("class", "button");
+addButton.textContent = "Add";
 
 
 // Data variables:
@@ -626,6 +629,10 @@ const App = () => {
 	securityNodes.forEach((node) => {
 		container.appendChild(node);
 	});
+
+	// Add button at bottom of page.
+	container.appendChild(addButton);
+
 };
 
 App();

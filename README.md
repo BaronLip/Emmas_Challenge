@@ -4,9 +4,9 @@ This was a coding challenge shared with me from Emma, a fellow cohort student. I
 #### STEPS:
 - ~~Add cancel functionality to editModal.~~
 - ~~Add edit functionality to editModal.~~
-- How would you refresh the DOM after data is saved?
-- Break out code into modules.
-- Complete CSS so it's not completely janky.
+- How would you refresh the DOM after security data is saved?
+- ~~Complete CSS so it's not completely janky.~~ (Not perfect but getting by for now.)
+- 
 
 #### LEARNINGS:
 - Structuring nested objects.

@@ -7,6 +7,17 @@
     padding: 8px;
 }
 
+.button {
+    background-color: azure;
+    text-align: center;
+    border-style:solid;
+    border-width: 1px;
+    max-width: 50px;
+    height: 33px;
+    padding: 8px;
+    line-height: 33px;
+}
+
 .title {
     display: block;
     font-size: 20px;
