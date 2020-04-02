@@ -419,7 +419,8 @@ const openEditModal = (e) => {
 	// Dropdown Menu:
 	let countryMenu = document.createElement('select');
 	countryMenu.setAttribute('id', 'country');
-
+	countryMenu.setAttribute('style', "max-height: 50px");
+	
 	countryList.forEach((country) => {
 		let countryOption = document.createElement('option');
 		countryOption.setAttribute('value', country);
