@@ -300,7 +300,7 @@ const countryList = [
 	'Zimbabwe',
 	'Åland Islands'
 ];
-// Creating the DOM variables here allow for better "global" access.
+// DOM variables here allow for "global" access.
 let backdrop;
 let priceModal;
 let addModal;
@@ -310,6 +310,7 @@ let hr = document.createElement('hr');
 
 // Data variables:
 let tempSecurity = {};
+
 
 const openAddModal = (e) => {
 	e.preventDefault();
@@ -421,6 +422,7 @@ const saveValueInputs = (e) => {
 	console.log(tempSecurity, isinNum);
 	// if an existing security is found, amend it.
 	// else create a new security in the securities array.
+	// place the new security card before the Add button.
 	if (isinNum) {
 		let security = securities.find( security => (
 			security.isin == isinNum
@@ -431,11 +433,16 @@ const saveValueInputs = (e) => {
 		security.country = tempSecurity.country;
 	} else {
 		securities.push(tempSecurity);
+		let newCard = card(tempSecurity);
+		// debugger
+		let addButton = document.getElementById("addButton");
+		addButton.parentNode.insertBefore(newCard, addButton);
 	}
 	console.log(securities);
 	closeModal(e);
 	
 	// Needs to refresh the DOM elements with new data.
+	// Can either try local/sessionStorage or separate out createCard function and create card with new data???
 }
 
 const editValueInputs = (e) => {
@@ -702,6 +709,8 @@ const card = (security) => {
 	newDiv.appendChild(edit);
 
 	securityNodes.push(newDiv);
+
+	return newDiv;
 };
 
 // // OR Use html template to create cards:
@@ -734,6 +743,7 @@ const App = () => {
 
 	// Add button at bottom of page.
 	let addButton = document.createElement("div");
+	addButton.setAttribute("id", "addButton");
 	addButton.setAttribute("class", "button");
 	addButton.addEventListener("click", openAddModal);
 	addButton.textContent = "Add";
