@@ -307,32 +307,134 @@ let addModal;
 let editModal;
 let br = document.createElement('br');
 let hr = document.createElement('hr');
-let addButton = document.createElement("div");
-addButton.setAttribute("class", "button");
-addButton.textContent = "Add";
-
 
 // Data variables:
 let tempSecurity = {};
 
+const openAddModal = (e) => {
+	e.preventDefault();
+	console.log("Add Modal");
+
+	// Backdrop element.
+	backdrop = document.createElement('div');
+	backdrop.classList.add('backdrop');
+	document.body.insertBefore(backdrop, container);
+	backdrop.addEventListener('click', closeModal);
+
+	// Open the Edit modal.
+	addModal = document.createElement('div');
+	addModal.setAttribute('class', 'modal grid');
+	
+	let title = document.createElement('p');
+	title.setAttribute("class", "header")
+	title.textContent = "Add Security:";
+	addModal.appendChild(title);
+
+	// ---BEGIN LEFT MODAL CONTAINER:---
+	let leftModalContainer = document.createElement("div");
+	leftModalContainer.setAttribute("class", "leftside");
+
+	let nameLabel = document.createElement('label');
+	nameLabel.textContent = 'Name';
+	leftModalContainer.appendChild(nameLabel);
+
+	leftModalContainer.appendChild(br);
+
+	let nameInput = document.createElement('input');
+	nameInput.setAttribute('id', 'name');
+	nameInput.setAttribute('rows', '1');
+	nameInput.setAttribute('column', '20');
+	nameInput.addEventListener("input", editValueInputs);
+	leftModalContainer.appendChild(nameInput);
+	
+	let countryLabel = document.createElement('label');
+	countryLabel.setAttribute("class", "leftside");
+	countryLabel.textContent = 'Country';
+	leftModalContainer.appendChild(countryLabel);
+	
+	// Dropdown Menu:
+	let countryMenu = document.createElement('select');
+	countryMenu.setAttribute('id', 'country');
+	countryMenu.setAttribute("class", "select");
+
+	countryList.forEach((country) => {
+		let countryOption = document.createElement('option');
+		countryOption.setAttribute('value', country);
+		countryOption.textContent = country;
+		countryMenu.appendChild(countryOption);
+	});
+	countryMenu.addEventListener("change", editValueInputs)
+	leftModalContainer.appendChild(countryMenu);
+
+	addModal.appendChild(leftModalContainer)
+
+	// ---END LEFT MODAL CONTAINER:---
+
+
+	// ---BEGIN RIGHT MODAL CONTAINER:---
+	let rightModalContainer = document.createElement("div");
+	rightModalContainer.setAttribute("class", "rightside");
+
+	let isinLabel = document.createElement('label');
+	isinLabel.textContent = 'ISIN';
+	rightModalContainer.appendChild(isinLabel);
+
+	rightModalContainer.appendChild(br);
+
+	let isinInput = document.createElement('input');
+	isinInput.setAttribute('id', 'isin');
+	isinInput.setAttribute('rows', '1');
+	isinInput.setAttribute('column', '20');
+	isinInput.addEventListener("input", editValueInputs);
+	rightModalContainer.appendChild(isinInput);
+	
+	addModal.appendChild(rightModalContainer);
+	// ---END RIGHT MODAL CONTAINER:---
+
+	// ---BEGIN FOOTER CONTAINER:---
+	let footer = document.createElement("div");
+	footer.setAttribute("class", "footer");
+	
+    let cancel = document.createElement("a");
+    cancel.setAttribute("class", "body footer");
+    cancel.setAttribute("href", "");
+	cancel.textContent = "Cancel";
+	cancel.addEventListener("click", closeModal);
+    footer.appendChild(cancel);
+
+    let save = document.createElement("a");
+    save.setAttribute("class", "body_right footer");
+    save.setAttribute("href", "");
+	save.textContent = "Save";
+	save.addEventListener("click", saveValueInputs)
+	footer.appendChild(save);
+	
+	addModal.appendChild(footer);
+	// ---END FOOTER CONTAINER:---
+
+	document.body.insertBefore(addModal, container);
+}
 
 const saveValueInputs = (e) => {
 	e.preventDefault();
 	let isinNum = e.target.parentNode.parentNode.dataset.isin
 	console.log(tempSecurity, isinNum);
-
-	let security = securities.find( security => (
-		security.isin == isinNum
-	))
-	
-	security.name = tempSecurity.name;
-	security.isin = tempSecurity.isin;
-	security.country = tempSecurity.country;
-
-	console.log(security);
+	// if an existing security is found, amend it.
+	// else create a new security in the securities array.
+	if (isinNum) {
+		let security = securities.find( security => (
+			security.isin == isinNum
+		));
+		
+		security.name = tempSecurity.name;
+		security.isin = tempSecurity.isin;
+		security.country = tempSecurity.country;
+	} else {
+		securities.push(tempSecurity);
+	}
 	console.log(securities);
 	closeModal(e);
-	// App();
+	
 	// Needs to refresh the DOM elements with new data.
 }
 
@@ -631,6 +733,10 @@ const App = () => {
 	});
 
 	// Add button at bottom of page.
+	let addButton = document.createElement("div");
+	addButton.setAttribute("class", "button");
+	addButton.addEventListener("click", openAddModal);
+	addButton.textContent = "Add";
 	container.appendChild(addButton);
 
 };

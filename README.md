@@ -6,7 +6,7 @@ This was a coding challenge shared with me from Emma, a fellow cohort student. I
 - ~~Add edit functionality to editModal.~~
 - How would you refresh the DOM after security data is saved?
 - ~~Complete CSS so it's not completely janky.~~ (Not perfect but getting by for now.)
-- 
+- Add the 'Add' functionality.
 
 #### LEARNINGS:
 - Structuring nested objects.
@@ -20,7 +20,7 @@ This was a coding challenge shared with me from Emma, a fellow cohort student. I
 - CSS grid for the editModal.
 
 #### NOTE:
-The edit link with each of the daily price should not be there. You would never personally edit a closing price of a stock. 
+- The edit link with each of the daily price should not be there. You would never personally edit a closing price of a stock. 
 
 #### RESOURCES:
 - How to create a vanilla JS modal - https://www.youtube.com/watch?v=ugjfB5HLfPM
