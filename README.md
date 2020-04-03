@@ -8,9 +8,9 @@ This was a coding challenge shared with me from Emma, a fellow cohort student. I
 #### HALF DOCUMENTED STEPS:
 - ~~Add cancel functionality to editModal.~~
 - ~~Add edit functionality to editModal.~~
-- How would you refresh the DOM after security data is saved?
+- ~~How would you refresh the DOM after security data is saved?~~ (No need, just add a new dom element based on added data.)
 - ~~Complete CSS so it's not completely janky.~~ (Not perfect but getting by for now.)
-- Add the 'Add' functionality.
+- ~~Add the 'Add' functionality.~~
 
 #### LEARNINGS:
 - Structuring nested objects.
@@ -22,7 +22,7 @@ This was a coding challenge shared with me from Emma, a fellow cohort student. I
 - CSS ```size``` for select html elements to limit amount of visible options. Although it is not the right solution.
 - Browser limitations. Using style attribute of ```max-height``` for the select html element works in Firefox but not Chrome.
 - CSS grid for the editModal.
-- insertBefore is very clunky. 
+- JS insertBefore() is very clunky.
 
 #### NOTE:
 - The instructions for this code challenge are 100% terrible, see the word doc. The edit link within the "Prices" modal has no functionality.

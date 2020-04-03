@@ -517,6 +517,7 @@ const openEditModal = (e) => {
 	nameInput.setAttribute('id', 'name');
 	nameInput.setAttribute('rows', '1');
 	nameInput.setAttribute('column', '20');
+	nameInput.placeholder = `${e.target.parentNode.dataset.name}`
 	nameInput.addEventListener("input", editValueInputs);
 	leftModalContainer.appendChild(nameInput);
 	
@@ -557,6 +558,7 @@ const openEditModal = (e) => {
 	isinInput.setAttribute('id', 'isin');
 	isinInput.setAttribute('rows', '1');
 	isinInput.setAttribute('column', '20');
+	isinInput.placeholder = `${e.target.parentNode.dataset.isin}`
 	isinInput.addEventListener("input", editValueInputs);
 	rightModalContainer.appendChild(isinInput);
 	
